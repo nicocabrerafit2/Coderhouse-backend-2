@@ -1,0 +1,22 @@
+{
+  "name": "clase-2",
+  "version": "1.0.0",
+  "description": "Cookies, sessio storage",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./src/app.js"
+  },
+  "keywords": [],
+  "author": "Nicolas D. Cabrera",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "express": "^4.19.2",
+    "express-handlebars": "^8.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
