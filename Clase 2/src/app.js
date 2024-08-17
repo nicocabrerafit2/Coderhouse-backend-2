@@ -11,6 +11,7 @@ app.set("view engine", "handlebars");
 app.use(cookieParser("cookieConSecreto"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname+"/public"))
 
 app.listen(PORT, () => {
   console.log("Servidor on http://localhost:" + PORT);
@@ -20,6 +21,9 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 app.get("/getCookie", (req, res) => {
+  const body = req.body
+  console.log(body);
+  
   res.send(req.signedCookies);
   console.log(req.signedCookies);
 });
@@ -31,7 +35,7 @@ app.post("/setCookie", (req, res) => {
       maxAge: 19999,
       signed: true,
     })
-    .send("Cookie");
+    .send("Cookie guardada");
 });
 app.get("/deleteCookie", (req, res) => {
   res.clearCookie("cookieDePrueba").send("Cookie eliminada");
