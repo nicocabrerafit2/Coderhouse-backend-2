@@ -37,3 +37,6 @@ app.get("/deleteCookie", (req, res) => {
   res.clearCookie("cookieDePrueba").send("Cookie eliminada");
   console.log("Cookie eliminada");
 });
+app.get("/session", (req, res) => {
+  
+});
