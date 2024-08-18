@@ -21,25 +21,23 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 app.get("/getCookie", (req, res) => {
-  const body = req.body
-  console.log(body);
-  
   res.send(req.signedCookies);
-  console.log(req.signedCookies);
 });
 app.post("/setCookie", (req, res) => {
   const { nameClient, mailClient } = req.body;
-  console.log(req.body);
-  res
-    .cookie(nameClient, mailClient, {
-      maxAge: 19999,
+  res.cookie("mail", mailClient, {
+      maxAge: 1999559,
       signed: true,
     })
-    .send("Cookie guardada");
+    res.cookie("name", nameClient, {
+      maxAge: 1999559,
+      signed: true,
+    })
+    .send("Cookie saved");
 });
 app.get("/deleteCookie", (req, res) => {
-  res.clearCookie("cookieDePrueba").send("Cookie eliminada");
-  console.log("Cookie eliminada");
+  res.clearCookie("name")
+  res.clearCookie("mail").send("Cookie deleted");
 });
 app.get("/session", (req, res) => {
   
