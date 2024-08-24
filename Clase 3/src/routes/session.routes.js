@@ -1,8 +1,19 @@
-import {Router} from "express"
-const router = Router()
+import { Router } from "express";
+import { users } from "../models/user.model.js";
+const router = Router();
 
-router.get("/",(req,res)=>{
-    res.send("Hola mundo")
-})
+router.post("/register", async (req, res) => {
+  const { first_name, last_name, email, age, password } = req.body;
 
-export default router
+  try {
+    await users.create({ first_name, last_name, email, age, password });
+    res.status(201).json({ message: "Usuario creado" });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ message: "Error al crear el usuario", error: error });
+  }
+});
+
+export default router;
