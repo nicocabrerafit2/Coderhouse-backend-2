@@ -13,11 +13,6 @@ const PORT = 8080;
 app.engine("handlebars", handlebars.engine());
 app.set("views", __dirname + "/views");
 app.set("view engine", "handlebars");
-app.use(express.static(__dirname + "/public"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use("/", viewRouter);
-app.use("/api", sessionRouter);
 app.use(
   session({
     store: MongoStore.create({
@@ -31,6 +26,12 @@ app.use(
     saveUninitialized: false,
   })
 );
+app.use(express.static(__dirname + "/public"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use("/", viewRouter);
+app.use("/api", sessionRouter);
+
 app.listen(PORT, () => {
   console.log("Servidor on http://localhost:" + PORT);
 });
