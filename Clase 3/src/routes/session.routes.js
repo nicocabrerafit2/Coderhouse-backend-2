@@ -40,5 +40,13 @@ router.post("/login", async (req, res) => {
 router.get("/getSession", (req, res) => {
   res.json({ session: req.session });
 });
+router.get("/logout", (req, res) => {
+  req.session.destroy((error) => {
+    if (error) {
+      return res.send("Error al desloguear");
+    }
+    res.redirect("/");
+  });
+});
 
 export default router;
