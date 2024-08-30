@@ -2,7 +2,7 @@ function isAuth(req, res, next) {
   if (req.session.user) {
     return next();
   } else {
-    return res.send("Debe loguearse para ver su perfil").redirect("/login");
+    return res.redirect("/login");
   }
 }
 
