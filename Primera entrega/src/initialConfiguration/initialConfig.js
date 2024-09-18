@@ -11,9 +11,8 @@ export const AppInit = (app) => {
   connectionDB();
   initializePassport();
   passport.initialize();
-  app.use(cookieParser(process.env.SECRET));
+  app.use(cookieParser("elSecreto"));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
-
   app.use("/", router);
 };

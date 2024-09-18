@@ -22,6 +22,6 @@ export const getJWTCookie = (req) => {
 };
 
 export const generadorToken = (user) => {
-  const token = jwt.sign(user, process.env.SECRET, { expiresIn: "24h" });
+  const token = jwt.sign(user, "elSecreto", { expiresIn: "24h" });
   return token;
 };
