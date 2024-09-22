@@ -8,7 +8,6 @@ router.post("/login", login);
 router.post("/register", register);
 
 router.get("/current", invokePassport("jwt"), (req, res) => {
-  console.log(req.user);
   res.send("Bienvenido " + req.user.nombre);
 });
 
