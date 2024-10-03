@@ -1,4 +1,4 @@
-import { UserModel } from "../models/userModel.js";
+import { UserModel } from "../persistence/mongo/dao/models/userModel.js";
 import { createHash, generadorToken, isValidPassword } from "../utils.js";
 
 export const login = async (req, res) => {
