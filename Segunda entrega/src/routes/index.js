@@ -1,8 +1,8 @@
 import { Router } from "express";
-import SessionRouter from "./session.router.js";
+import userRouter from "./userRouter.js";
 
 const router = Router();
 
-router.use("/api/sessions/", SessionRouter);
+router.use("/api/sessions/", userRouter);
 
 export default router;

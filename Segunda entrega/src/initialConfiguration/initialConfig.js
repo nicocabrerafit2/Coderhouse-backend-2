@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import router from "../routes/index.js";
+import routerIndex from "../routes/index.js";
 import { connectionDB } from "../persistence/mongo/dao/connection.js";
 import cookieParser from "cookie-parser";
 import passport from "passport";
@@ -14,5 +14,5 @@ export const AppInit = (app) => {
   app.use(cookieParser("elSecreto"));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
-  app.use("/", router);
+  app.use("/", routerIndex);
 };
