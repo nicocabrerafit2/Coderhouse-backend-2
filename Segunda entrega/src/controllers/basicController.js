@@ -1,6 +1,6 @@
-import { createResponse } from "../utils.js";
+import { createResponse } from "../utils/utils.js";
 
-export default class basicController {
+class basicController {
   constructor(service) {
     this.service = service;
   }
@@ -56,3 +56,5 @@ export default class basicController {
     }
   };
 }
+
+export default basicController;

@@ -1,12 +1,12 @@
 import express from "express";
 import dotenv from "dotenv";
-import routerIndex from "../routes/index.js";
-import { connectionDB } from "../persistence/mongo/dao/connection.js";
 import cookieParser from "cookie-parser";
 import passport from "passport";
-import initializePassport from "../passport/jwtPassport.js";
+import router from "../routes/index.js";
+import connectionDB from "../persistence/mongoDB/dao/connection.js";
+import initializePassport from "../middlewares/jwtPassport.js";
 
-export const AppInit = (app) => {
+const AppInit = (app) => {
   dotenv.config();
   connectionDB();
   initializePassport();
@@ -14,5 +14,7 @@ export const AppInit = (app) => {
   app.use(cookieParser("elSecreto"));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
-  app.use("/", routerIndex);
+  app.use("/", router);
 };
+
+export { AppInit };

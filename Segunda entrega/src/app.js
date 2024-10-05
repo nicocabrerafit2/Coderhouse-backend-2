@@ -1,5 +1,5 @@
 import express from "express";
-import { AppInit } from "./initialConfiguration/initialConfig.js";
+import { AppInit } from "./config/config.js";
 
 const app = express();
 AppInit(app);
