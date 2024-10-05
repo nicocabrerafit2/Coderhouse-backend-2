@@ -27,4 +27,15 @@ const generadorToken = (user) => {
   return token;
 };
 
-export { __dirname, createHash, isValidPassword, getJWTCookie, generadorToken };
+const createResponse = (res, statusCode, data) => {
+  return res.status(statusCode).json({ data });
+};
+
+export {
+  __dirname,
+  createHash,
+  isValidPassword,
+  getJWTCookie,
+  generadorToken,
+  createResponse,
+};

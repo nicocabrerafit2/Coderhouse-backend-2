@@ -1,3 +1,35 @@
+import UserService from "../services/userServices.js";
+import { createResponse } from "../utils.js";
+import basicController from "./basicController.js";
+
+const userService = new UserService();
+
+export default class userController extends basicController {
+  constructor() {
+    super(userService);
+  }
+
+  register = async (req, res, next) => {
+    try {
+      const data = await this.service.register(req.body);
+      !data ? createResponse(res, 404, data) : createResponse(res, 200, data);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  login = async (req, res, next) => {
+    try {
+      const token = await this.service.login(req.body);
+      !token
+        ? createResponse(res, 404, token)
+        : createResponse(res, 200, token);
+    } catch (error) {
+      next(error);
+    }
+  };
+}
+
 import { UserModel } from "../persistence/mongo/dao/models/userModel.js";
 import { createHash, generadorToken, isValidPassword } from "../utils.js";
 
@@ -24,7 +56,7 @@ export const login = async (req, res) => {
     }
     return res.status(200).json({ message: "error login" });
   } catch (e) {
-    return res.json({ message: "el error es el siguiente:" + e });
+    return res.json({ message: "Error: " + e });
   }
 };
 
