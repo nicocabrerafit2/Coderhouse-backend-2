@@ -31,7 +31,7 @@ class UserService extends basicServices {
       const { email, password } = user;
       const userExist = await this.dao.getByEmail(email);
       if (!userExist) return null;
-      const passValid = isValidPassword(password, userExist);
+      const passValid = isValidPassword(userExist, password);
       if (!passValid) return null;
       if (userExist && passValid) return generadorToken(userExist);
     } catch (error) {

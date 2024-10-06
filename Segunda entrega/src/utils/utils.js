@@ -4,17 +4,17 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+export const __dirname = dirname(__filename);
 
-const createHash = (pass) => {
-  bcrypt.hashSync(pass, bcrypt.genSaltSync(10));
+export const createHash = (pass) => {
+  return bcrypt.hashSync(pass, bcrypt.genSaltSync(10));
 };
 
-const isValidPassword = (user, pass) => {
-  bcrypt.compareSync(pass, user.password);
+export const isValidPassword = (user, pass) => {
+  return bcrypt.compareSync(pass, user.password);
 };
 
-const getJWTCookie = (req) => {
+export const getJWTCookie = (req) => {
   let token = null;
   if (req.signedCookies) {
     token = req.signedCookies["currentUser"];
@@ -22,20 +22,11 @@ const getJWTCookie = (req) => {
   return token;
 };
 
-const generadorToken = (user) => {
+export const generadorToken = (user) => {
   const token = jwt.sign(user, process.env.SECRET, { expiresIn: "24h" });
   return token;
 };
 
-const createResponse = (res, statusCode, data) => {
+export const createResponse = (res, statusCode, data) => {
   return res.status(statusCode).json({ data });
-};
-
-export {
-  __dirname,
-  createHash,
-  isValidPassword,
-  getJWTCookie,
-  generadorToken,
-  createResponse,
 };

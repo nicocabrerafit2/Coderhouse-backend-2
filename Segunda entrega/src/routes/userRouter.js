@@ -10,5 +10,8 @@ router.post("/register", userController.register);
 router.get("/current", invokePassport("jwt"), (req, res) => {
   res.send("Bienvenido " + req.user.nombre);
 });
+router.get("*", (req, res) => {
+  res.send("Error no se encontro la ruta");
+});
 
 export default router;

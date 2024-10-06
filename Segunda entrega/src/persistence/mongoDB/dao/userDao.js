@@ -8,7 +8,7 @@ class UserAccessMongo extends mongoDao {
 
   async getByEmail(email) {
     try {
-      return await this.model.findOne({ email });
+      return await this.model.findOne({ email }).lean();
     } catch (error) {
       throw new Error(error);
     }

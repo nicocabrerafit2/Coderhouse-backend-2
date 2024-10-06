@@ -11,7 +11,7 @@ const initializePassport = () => {
     new JWTStrategy(
       {
         jwtFromRequest: ExtractJwt.fromExtractors([getJWTCookie]),
-        secretOrKey: "elSecreto",
+        secretOrKey: process.env.SECRET,
       },
       async (payload, done) => {
         try {
