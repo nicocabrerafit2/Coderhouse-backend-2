@@ -33,7 +33,13 @@ class UserService extends basicServices {
       if (!userExist) return null;
       const passValid = isValidPassword(userExist, password);
       if (!passValid) return null;
-      if (userExist && passValid) return generadorToken(userExist);
+      if (userExist && passValid) {
+        return generadorToken({
+          email: userExist.email,
+          nombre: userExist.nombre,
+          rol: userExist.rol,
+        });
+      }
     } catch (error) {
       throw new Error(error);
     }

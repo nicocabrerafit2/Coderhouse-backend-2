@@ -23,7 +23,14 @@ class UserController extends basicController {
       const token = await this.service.login(req.body);
       !token
         ? createResponse(res, 404, token)
-        : createResponse(res, 200, token);
+        : res
+            .status(200)
+            .cookie("currentUser", token, {
+              maxAge: 600000,
+              signed: true,
+              httpOnly: true,
+            })
+            .json({ message: "login OK", token });
     } catch (error) {
       next(error);
     }

@@ -17,7 +17,7 @@ const initializePassport = () => {
         try {
           const userFound = await userModel
             .findOne({ email: payload.email })
-            .populate("cart")
+            //.populate("cart")
             .lean();
           if (!userFound) {
             return done(null, false);
