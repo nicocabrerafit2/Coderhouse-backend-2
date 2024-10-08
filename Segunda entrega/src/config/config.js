@@ -3,12 +3,12 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import passport from "passport";
 import router from "../routes/index.js";
-import connectionDB from "../persistence/mongoDB/dao/connection.js";
+import mongoConennect from "../persistence/mongoDB/dao/connection.js";
 import initializePassport from "../middlewares/jwtPassport.js";
 
 const AppInit = (app) => {
   dotenv.config();
-  connectionDB();
+  mongoConennect.getInstance(); //metodo singleton para conexion a mongo
   initializePassport();
   passport.initialize();
   app.use(cookieParser(process.env.SECRET));

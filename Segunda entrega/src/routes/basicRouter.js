@@ -53,6 +53,7 @@ export default class BasicRouter {
     return (req, res, next) => {
       if (policies.includes("PUBLIC")) return next();
       const reqJWT = req.headers.authorization; // si me da un jwt es porque se logueo o almenos estuvo loqueado
+      console.log(reqJWT);
       if (!reqJWT)
         return res
           .status(400)
