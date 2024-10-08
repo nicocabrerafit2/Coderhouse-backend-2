@@ -15,5 +15,8 @@ export default class UserRouter extends BasicRouter {
     this.get("*", (req, res) => {
       res.send("Error no se encontro la ruta");
     });
+    this.post("*", (req, res) => {
+      res.send("Error no se encontro la ruta");
+    });
   }
 }

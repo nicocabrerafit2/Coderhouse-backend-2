@@ -15,5 +15,8 @@ router.get("/current", invokePassport("jwt"), (req, res) => {
 router.get("*", (req, res) => {
   res.send("Error no se encontro la ruta");
 });
+router.post("*", (req, res) => {
+  res.send("Error no se encontro la ruta");
+});
 
 export default router;
