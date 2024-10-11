@@ -1,7 +1,7 @@
 import UserService from "../services/userServices.js";
 import { createResponse } from "../utils/utils.js";
 import basicController from "./basicController.js";
-
+import { userDTOReq, userDTORes } from "../DTO/userDTO.js";
 const userService = new UserService();
 
 class UserController extends basicController {
@@ -11,7 +11,8 @@ class UserController extends basicController {
 
   register = async (req, res, next) => {
     try {
-      const data = await this.service.register(req.body);
+      const userData = new userDTOReq(req.body);
+      const data = await this.service.register(userData);
       if (data === null) {
         createResponse(res, 404, {
           message: "Este email ya se encuentra registrado",
@@ -26,7 +27,8 @@ class UserController extends basicController {
 
   login = async (req, res, next) => {
     try {
-      const token = await this.service.login(req.body);
+      const userData = new userDTOReq(req.body);
+      const token = await this.service.login(userData);
       if (token === null) {
         createResponse(res, 404, {
           message: "Email o contraseña incorrectos",

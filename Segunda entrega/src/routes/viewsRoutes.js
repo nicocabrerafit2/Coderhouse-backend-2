@@ -1,5 +1,7 @@
 import { Router } from "express";
 import { invokePassport } from "../middlewares/handlerError.js";
+import mongoDao from "../persistence/mongoDB/dao/basicDao.js";
+import { userModel } from "../persistence/mongoDB/models/userModel.js";
 const router = Router();
 
 router.get("/login", (req, res) => {
@@ -9,8 +11,8 @@ router.get("/login", (req, res) => {
   return res.redirect("/users/current");
 });
 
-router.get("/current", invokePassport("jwt"), (req, res) => {
-  res.send("Bienvenido " + req.user.email);
+router.get("/current", invokePassport("jwt"), async (req, res) => {
+  res.send("Bienvenido " + req.user.name);
 });
 router.get("*", (req, res) => {
   res.send("Error no se encontro la ruta");

@@ -4,6 +4,7 @@ import basicServices from "./basicServices.js";
 import { transport } from "../utils/utils.js";
 import { __dirname } from "../utils/utils.js";
 import path from "path";
+import { userDTOReq, userDTORes } from "../DTO/userDTO.js";
 const userDAO = new UserAccessMongo();
 
 class UserService extends basicServices {
@@ -36,11 +37,8 @@ class UserService extends basicServices {
       const passValid = isValidPassword(userExist, password);
       if (!passValid) return null;
       if (userExist && passValid) {
-        return generadorToken({
-          email: userExist.email,
-          nombre: userExist.nombre,
-          rol: userExist.rol,
-        });
+        const data = new userDTORes(userExist);
+        return generadorToken({ data });
       }
     } catch (error) {
       throw new Error(error);

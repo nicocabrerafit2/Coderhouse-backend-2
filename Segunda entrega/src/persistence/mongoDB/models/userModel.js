@@ -3,11 +3,11 @@ import { model, Schema } from "mongoose";
 const userCollection = "user";
 
 const userSchema = new Schema({
-  nombre: {
+  name: {
     type: String,
     require: true,
   },
-  apellido: {
+  last_name: {
     type: String,
     require: true,
   },

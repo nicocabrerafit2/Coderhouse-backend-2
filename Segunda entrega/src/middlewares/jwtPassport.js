@@ -2,7 +2,7 @@ import passport from "passport";
 import jwt, { ExtractJwt } from "passport-jwt";
 import { getJWTCookie } from "../utils/utils.js";
 import { userModel } from "../persistence/mongoDB/models/userModel.js";
-
+import { userDTOReq, userDTORes } from "../DTO/userDTO.js";
 const JWTStrategy = jwt.Strategy;
 
 const initializePassport = () => {
@@ -15,8 +15,10 @@ const initializePassport = () => {
       },
       async (payload, done) => {
         try {
+          const userData = new userDTOReq(payload.data);
+
           const userFound = await userModel
-            .findOne({ email: payload.email })
+            .findOne({ email: userData.email })
             //.populate("cart")
             .lean();
           if (!userFound) {
