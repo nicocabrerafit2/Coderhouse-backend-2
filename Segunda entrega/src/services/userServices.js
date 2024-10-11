@@ -1,7 +1,9 @@
 import { createHash, generadorToken, isValidPassword } from "../utils/utils.js";
 import UserAccessMongo from "../persistence/mongoDB/dao/userDao.js";
 import basicServices from "./basicServices.js";
-
+import { transport } from "../utils/utils.js";
+import { __dirname } from "../utils/utils.js";
+import path from "path";
 const userDAO = new UserAccessMongo();
 
 class UserService extends basicServices {
@@ -40,6 +42,33 @@ class UserService extends basicServices {
           rol: userExist.rol,
         });
       }
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+  async sendMail(user) {
+    try {
+      const mailSend = await transport.sendMail({
+        from: "NC developer <nicocabrera8@gmail.com>",
+        to: "nicocabrera8@outlook.com",
+        subject: "Prueba de envío de mail automático",
+        html: `
+            <div>
+                <p> Saludos desde nodemailer(librería para enviar mails)</p>
+                <a href="https://goole.com.ar" target="__blank"> 
+                    <img src="cid:img01" />
+                </a>
+            </div>
+        `,
+        attachments: [
+          {
+            filename: "Hay_tabla.png",
+            path: path.join(__dirname, "..", "/img/Hay_tabla.png"),
+            cid: "img01",
+          },
+        ],
+      });
+      return mailSend;
     } catch (error) {
       throw new Error(error);
     }

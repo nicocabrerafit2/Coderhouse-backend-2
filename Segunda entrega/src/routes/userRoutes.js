@@ -8,15 +8,15 @@ export default class UserRouter extends BasicRouter {
     this.post("/login", ["PUBLIC"], userController.login);
     this.post("/register", ["PUBLIC"], userController.register);
 
-    this.get("/:id", ["USER"], (req, res) => {
-      console.log(req.params.id);
+    this.get("/mail", ["PUBLIC"], userController.sendMail);
+    this.get("/send", ["USER"], userController.sendMessagePhone);
+    /*this.get("/:id", ["USER"], (req, res) => {
       if (typeof req.params.id != Number) {
         return res.send("id no válido, verifique su endpoint");
       }
-      console.log(req.params.id);
       res.success(req.params.id);
     });
-
+*/
     this.get("*", (req, res) => {
       res.send("Error no se encontro la ruta");
     });

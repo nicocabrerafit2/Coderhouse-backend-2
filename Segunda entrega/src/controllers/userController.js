@@ -47,5 +47,32 @@ class UserController extends basicController {
       next(error);
     }
   };
+  sendMail = async (req, res, next) => {
+    try {
+      const mailSend = await this.service.sendMail(req.body);
+      if (!mailSend) {
+        createResponse(res, 404, {
+          message: "Error al enviar el mail",
+        });
+      } else {
+        createResponse(res, 200, {
+          message: "Mail enviado con éxito",
+        });
+      }
+    } catch (error) {
+      next(error);
+    }
+  };
+  sendMessagePhone = async (req, res, next) => {
+    try {
+      await client.messages.create({
+        body: ``,
+        from: process.env.TWILIO_NUMBER, // el numeor de twilio
+        to: "+541167588854",
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 export default UserController;

@@ -2,6 +2,7 @@ import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import nodemailer from "nodemailer";
 
 const __filename = fileURLToPath(import.meta.url);
 export const __dirname = dirname(__filename);
@@ -30,3 +31,11 @@ export const generadorToken = (user) => {
 export const createResponse = (res, statusCode, data) => {
   return res.status(statusCode).json({ data });
 };
+export const transport = nodemailer.createTransport({
+  service: "gmail",
+  port: 587,
+  auth: {
+    user: "nicocabrera8@gmail.com",
+    pass: "tsdg igis tmrj utqp",
+  },
+});
