@@ -26,6 +26,6 @@ const userSchema = new Schema({
   },
 });
 
-const userModel = model(userCollection, userSchema);
+const userModelMongo = model(userCollection, userSchema);
 
-export { userModel };
+export { userModelMongo };

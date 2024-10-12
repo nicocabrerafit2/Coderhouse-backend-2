@@ -1,9 +1,9 @@
 import mongoDao from "./basicDao.js";
-import { userModel } from "../models/userModel.js";
+import { userModelMongo } from "../models/userModel.js";
 
 class UserAccessMongo extends mongoDao {
   constructor() {
-    super(userModel);
+    super(userModelMongo);
   }
 
   async getByEmail(email) {
