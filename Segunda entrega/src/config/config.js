@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 import passport from "passport";
 import router from "../routes/index.js";
 import initializePassport from "../middlewares/jwtPassport.js";
-import persistenceDaoInit from "../persistence/factory.js";
+import { persistenceDaoInit } from "../persistence/factory.js";
 
 const AppInit = (app) => {
   dotenv.config();

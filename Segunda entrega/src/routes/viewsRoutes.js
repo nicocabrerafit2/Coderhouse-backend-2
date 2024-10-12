@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { invokePassport } from "../middlewares/handlerError.js";
-import mongoDao from "../persistence/mongoDB/dao/basicDao.js";
-import { userModel } from "../persistence/mongoDB/models/userModel.js";
+
 const router = Router();
 
 router.get("/login", (req, res) => {

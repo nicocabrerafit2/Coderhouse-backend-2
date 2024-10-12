@@ -1,11 +1,12 @@
 import { createHash, generadorToken, isValidPassword } from "../utils/utils.js";
-import UserAccessMongo from "../persistence/mongoDB/dao/userDao.js";
+import { userService } from "../repositories/index.js";
+
 import basicServices from "./basicServices.js";
 import { transport } from "../utils/utils.js";
 import { __dirname } from "../utils/utils.js";
 import path from "path";
-import { userDTOReq, userDTORes } from "../DTO/userDTO.js";
-const userDAO = new UserAccessMongo();
+import { userDTOReq, userDTORes } from "../persistence/DTO/userDTO.js";
+const userDAO = userService;
 
 class UserService extends basicServices {
   constructor() {

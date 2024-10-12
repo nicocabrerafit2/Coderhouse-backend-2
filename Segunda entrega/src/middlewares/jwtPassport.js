@@ -2,7 +2,7 @@ import passport from "passport";
 import jwt, { ExtractJwt } from "passport-jwt";
 import { getJWTCookie } from "../utils/utils.js";
 import { userModel } from "../persistence/mongoDB/models/userModel.js";
-import { userDTOReq, userDTORes } from "../DTO/userDTO.js";
+import { userDTOReq, userDTORes } from "../persistence/DTO/userDTO.js";
 const JWTStrategy = jwt.Strategy;
 
 const initializePassport = () => {

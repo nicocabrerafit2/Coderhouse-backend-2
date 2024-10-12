@@ -1,7 +1,7 @@
 import UserService from "../services/userServices.js";
 import { createResponse } from "../utils/utils.js";
 import basicController from "./basicController.js";
-import { userDTOReq, userDTORes } from "../DTO/userDTO.js";
+import { userDTOReq, userDTORes } from "../persistence/DTO/userDTO.js";
 const userService = new UserService();
 
 class UserController extends basicController {
