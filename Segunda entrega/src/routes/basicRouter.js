@@ -55,9 +55,10 @@ export default class BasicRouter {
       const reqJWT = req.headers.authorization; // si me da un jwt es porque se logueo o almenos estuvo loqueado
 
       if (!reqJWT)
-        return res
-          .status(400)
-          .send({ status: "error", message: "no logueado" });
+        return res.status(400).send({
+          status: "error",
+          message: "Necesita loguearse para continuar",
+        });
       let userPayload = null;
       try {
         userPayload = jwt.verify(reqJWT, process.env.SECRET);
@@ -87,7 +88,7 @@ export default class BasicRouter {
     });
   }
 
-  customResponses(req, res, next) {
+  /* customResponses(req, res, next) {
     res.success = (payload) => res.json({ status: "success", payload });
     res.errorServer = (error) =>
       res.status(500).json({ status: "server error", error });
@@ -96,5 +97,5 @@ export default class BasicRouter {
         .status(404)
         .json({ status: "not found", error: "Recurso no encontrado" });
     next();
-  }
+  }*/
 }
