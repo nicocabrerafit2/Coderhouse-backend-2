@@ -1,9 +1,10 @@
 import { Router } from "express";
-import jwt from "jsonwebtoken";
+import { handlePolicies } from "../middlewares/validationRoutes.js";
 
 export default class BasicRouter {
   constructor() {
     this.router = Router();
+    this.handlePolicies = handlePolicies;
     this.init();
   }
 
@@ -46,36 +47,6 @@ export default class BasicRouter {
       //this.customResponses,
       this.applyCallbacks(cb)
     );
-  }
-
-  handlePolicies(policies) {
-    // ['PUBLIC','ADMIN','USER','SUPERADMIN']
-    return (req, res, next) => {
-      if (policies.includes("PUBLIC")) return next();
-      const reqJWT = req.headers.authorization; // si me da un jwt es porque se logueo o almenos estuvo loqueado
-
-      if (!reqJWT)
-        return res.status(400).send({
-          status: "error",
-          message: "Necesita loguearse para continuar",
-        });
-      let userPayload = null;
-      try {
-        userPayload = jwt.verify(reqJWT, process.env.SECRET);
-      } catch (e) {
-        return res.status(400).send({ status: "error", message: e });
-      }
-      if (!userPayload)
-        return res
-          .status(400)
-          .send({ status: "error", message: "error en el token" });
-      if (!policies.includes(userPayload.rol.toUpperCase()))
-        return res
-          .status(403)
-          .send({ status: "error", message: "no estas autorizado" });
-      req.user = userPayload;
-      next();
-    };
   }
 
   applyCallbacks(cb) {
