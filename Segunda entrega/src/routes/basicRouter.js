@@ -17,7 +17,7 @@ export default class BasicRouter {
     this.router.get(
       path,
       this.handlePolicies(policies),
-      this.customResponses,
+      //this.customResponses,
       this.applyCallbacks(cb)
     );
   }
@@ -26,7 +26,7 @@ export default class BasicRouter {
     this.router.post(
       path,
       this.handlePolicies(policies),
-      this.customResponses,
+      //this.customResponses,
       this.applyCallbacks(cb)
     );
   }
@@ -35,7 +35,7 @@ export default class BasicRouter {
     this.router.post(
       path,
       this.handlePolicies(policies),
-      this.customResponses,
+      //this.customResponses,
       this.applyCallbacks(cb)
     );
   }
@@ -43,7 +43,7 @@ export default class BasicRouter {
     this.router.post(
       path,
       this.handlePolicies(policies),
-      this.customResponses,
+      //this.customResponses,
       this.applyCallbacks(cb)
     );
   }
