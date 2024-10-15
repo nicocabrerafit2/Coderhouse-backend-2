@@ -65,16 +65,20 @@ class UserController extends basicController {
       next(error);
     }
   };
+  /*
+  ----------------ENVIO DE MENSAJE POR CELULAR NO APLICADO ---------------
   sendMessagePhone = async (req, res, next) => {
     try {
       await client.messages.create({
         body: ``,
         from: process.env.TWILIO_NUMBER, // el numeor de twilio
-        to: "+541167588854",
+        to: "+5411-----",
       });
     } catch (error) {
       next(error);
     }
   };
+    -----------------------------------------------------------------------
+    */
 }
 export default UserController;
