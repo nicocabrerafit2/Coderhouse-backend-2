@@ -7,8 +7,8 @@ export default class mongoConennect {
   async connectionDB() {
     try {
       await mongoose
-        .connect(process.env.MONGO_STRING, { dbName: process.env.USE_DB })
-        .then(console.log("Base de datos conectada"));
+        .connect(process.env.MONGO_STRING, { dbName: process.env.DB })
+        .then(console.log("Base de datos conectada ", process.env.DB));
     } catch (e) {
       console.log("Error al conectarse a la base de datos");
     }

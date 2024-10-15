@@ -1,16 +1,15 @@
 import { createHash, generadorToken, isValidPassword } from "../utils/utils.js";
-import { userService } from "../repositories/index.js";
+import { UserRepository } from "../repositories/index.js";
 
 import basicServices from "./basicServices.js";
 import { transport } from "../utils/utils.js";
 import { __dirname } from "../utils/utils.js";
 import path from "path";
 import { userDTOReq, userDTORes } from "../persistence/DTO/userDTO.js";
-const userDAO = userService;
 
 class UserService extends basicServices {
   constructor() {
-    super(userDAO);
+    super(UserRepository);
   }
 
   async register(user) {

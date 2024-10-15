@@ -1,5 +1,7 @@
+import mongoosePaginate from "mongoose-paginate-v2";
 import { Schema, model } from "mongoose";
-const productCollection = "product";
+
+const productCollection = "products";
 
 const productSchema = new Schema({
   title: {
@@ -16,11 +18,11 @@ const productSchema = new Schema({
     unique: true,
   },
   price: {
-    type: String,
-    default: "user",
+    type: Number,
+    require: true,
   },
   stock: {
-    type: String,
+    type: Number,
     require: true,
   },
   category: {
@@ -28,27 +30,11 @@ const productSchema = new Schema({
     require: true,
   },
   thumbnails: {
-    type: String,
+    type: Array,
     require: true,
   },
 });
-
+productSchema.plugin(mongoosePaginate);
 const productModelMongo = model(productCollection, productSchema);
 
 export { productModelMongo };
-/*
-import mongoosePaginate from "mongoose-paginate-v2";
-const productStructure = new Schema({
-  title: String,
-  description: String,
-  code: String,
-  price: Number,
-  stock: Number,
-  category: String,
-  thumbnails: Array,
-});
-productStructure.plugin(mongoosePaginate);
-const productDb = model("productDb", productStructure);
-
-export { productDb };
-*/
