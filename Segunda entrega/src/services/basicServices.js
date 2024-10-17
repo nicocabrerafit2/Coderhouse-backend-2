@@ -1,11 +1,11 @@
 class basicServices {
-  constructor(dao) {
-    this.dao = dao;
+  constructor(repository) {
+    this.repository = repository;
   }
 
   async getAll() {
     try {
-      return await this.dao.getAll();
+      return await this.repository.getAll();
     } catch (error) {
       throw new Error(error);
     }
@@ -13,7 +13,7 @@ class basicServices {
 
   async getById(id) {
     try {
-      return await this.dao.getById(id);
+      return await this.repository.getById(id);
     } catch (error) {
       throw new Error(error);
     }
@@ -21,7 +21,7 @@ class basicServices {
 
   async create(obj) {
     try {
-      return await this.dao.create(obj);
+      return await this.repository.create(obj);
     } catch (error) {
       throw new Error(error);
     }
@@ -29,7 +29,7 @@ class basicServices {
 
   async update(id, obj) {
     try {
-      return await this.dao.update(id, obj);
+      return await this.repository.update(id, obj);
     } catch (error) {
       throw new Error(error);
     }
@@ -37,7 +37,7 @@ class basicServices {
 
   async delete(id) {
     try {
-      return await this.dao.delete(id);
+      return await this.repository.delete(id);
     } catch (error) {
       throw new Error(error);
     }

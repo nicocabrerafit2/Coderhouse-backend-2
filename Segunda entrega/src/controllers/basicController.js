@@ -28,8 +28,9 @@ class basicController {
   create = async (req, res, next) => {
     try {
       const data = await this.service.create(req.body);
-      createResponse(res, 200, data);
+      createResponse(res, 201, data);
     } catch (error) {
+      createResponse(res, 400, data);
       next(error);
     }
   };
@@ -49,9 +50,9 @@ class basicController {
     try {
       const { id } = req.params;
       const data = await this.service.delete(id);
-      if (!data) createResponse(res, 404, data);
-      else createResponse(res, 200, data);
+      createResponse(res, 200, data);
     } catch (error) {
+      createResponse(res, 400, data);
       next(error);
     }
   };

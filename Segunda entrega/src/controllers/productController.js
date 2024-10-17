@@ -1,14 +1,18 @@
-import UserService from "../services/userServices.js";
+//Funcion del controller:
+//*Devuelve las respuestas HTTP.
+//* Coordina y direcciona las solicitudes al servicio correspondiente.
+import ProductService from "../services/productServices.js";
 import { createResponse } from "../utils/utils.js";
 import basicController from "./basicController.js";
-import { userDTOReq, userDTORes } from "../persistence/DTO/userDTO.js";
-const userService = new UserService();
+import { productDTOReq, productDTORes } from "../persistence/DTO/productDTO.js";
+const ProductService = new ProductService();
 
-class UserController extends basicController {
+class ProductController extends basicController {
   constructor() {
-    super(userService);
+    super(ProductService);
   }
 }
+export default ProductController;
 
 /*import { productDb } from "../models/products.model.js";
 class ProductManager {
