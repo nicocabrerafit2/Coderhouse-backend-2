@@ -1,4 +1,3 @@
-import { productDTOReq } from "../persistence/DTO/productDTO.js";
 export default class productRepository {
   constructor(dao) {
     this.dao = dao;
@@ -8,8 +7,7 @@ export default class productRepository {
     return result;
   };
   create = async (product) => {
-    const productData = new productDTOReq(product);
-    let result = await this.dao.create(productData);
+    let result = await this.dao.create(product);
     return result;
   };
   getById = async (id) => {
@@ -17,8 +15,7 @@ export default class productRepository {
     return result;
   };
   update = async (id, product) => {
-    const productData = new productDTOReq(product);
-    let result = await this.dao.update(id, productData);
+    let result = await this.dao.update(id, product);
     return result;
   };
   delete = async (id) => {
