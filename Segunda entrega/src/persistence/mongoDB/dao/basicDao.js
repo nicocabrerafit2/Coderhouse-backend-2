@@ -7,7 +7,7 @@ class mongoDao {
     try {
       return await this.model.find({});
     } catch (error) {
-      throw new Error(error);
+      return error;
     }
   }
 
@@ -15,7 +15,7 @@ class mongoDao {
     try {
       return await this.model.findById(id);
     } catch (error) {
-      throw new Error(error);
+      return error;
     }
   }
 
@@ -31,7 +31,7 @@ class mongoDao {
     try {
       return await this.model.findByIdAndUpdate(id, obj, { new: true });
     } catch (error) {
-      throw new Error(error);
+      return error;
     }
   }
 
@@ -39,7 +39,7 @@ class mongoDao {
     try {
       return await this.model.findByIdAndDelete(id);
     } catch (error) {
-      throw new Error(error);
+      return error;
     }
   }
 }

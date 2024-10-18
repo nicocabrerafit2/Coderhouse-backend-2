@@ -10,7 +10,8 @@ class basicController {
       const data = await this.service.getAll();
       createResponse(res, 200, data);
     } catch (error) {
-      next(error);
+      const statusCode = error.statusCode || 500;
+      createResponse(res, statusCode, error.message);
     }
   };
 
@@ -21,7 +22,8 @@ class basicController {
       if (!data) createResponse(res, 404, data);
       else createResponse(res, 200, data);
     } catch (error) {
-      next(error);
+      const statusCode = error.statusCode || 500;
+      createResponse(res, statusCode, error.message);
     }
   };
 
@@ -30,11 +32,10 @@ class basicController {
       const data = await this.service.create(req.body);
       createResponse(res, 201, data);
     } catch (error) {
-      createResponse(res, 400, data);
-      next(error);
+      const statusCode = error.statusCode || 500;
+      createResponse(res, statusCode, error.message);
     }
   };
-
   update = async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -42,7 +43,8 @@ class basicController {
       if (!data) createResponse(res, 404, data);
       else createResponse(res, 200, data);
     } catch (error) {
-      next(error);
+      const statusCode = error.statusCode || 500;
+      createResponse(res, statusCode, error.message);
     }
   };
 
@@ -52,8 +54,8 @@ class basicController {
       const data = await this.service.delete(id);
       createResponse(res, 200, data);
     } catch (error) {
-      createResponse(res, 400, data);
-      next(error);
+      const statusCode = error.statusCode || 500;
+      createResponse(res, statusCode, error.message);
     }
   };
 }

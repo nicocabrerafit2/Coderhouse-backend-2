@@ -21,7 +21,8 @@ class basicServices {
 
   async create(obj) {
     try {
-      return await this.repository.create(obj);
+      const pepe = await this.repository.create(obj);
+      return pepe;
     } catch (error) {
       throw new Error(error);
     }

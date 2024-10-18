@@ -5,11 +5,19 @@ const productController = new ProductController();
 
 export default class ProductRouter extends BasicRouter {
   init() {
-    this.get("/", ["PUBLIC"], productController.getAll(req, res));
-    this.get("/:productId", ["PUBLIC"], productController.getById(req, res));
-    this.post("/", ["ADMIN"], productController.create(req, res));
-    this.put("/:id", ["ADMIN"], productController.update(req, res));
-    this.delete("/:id", ["ADMIN"], productController.delete(req, res));
+    this.get("/", ["PUBLIC"], (req, res) => productController.getAll(req, res));
+    this.get("/:productId", ["PUBLIC"], (req, res) =>
+      productController.getById(req, res)
+    );
+    this.post("/", ["PUBLIC"], (req, res) =>
+      productController.create(req, res)
+    );
+    this.put("/:id", ["ADMIN"], (req, res) =>
+      productController.update(req, res)
+    );
+    this.delete("/:id", ["ADMIN"], (req, res) =>
+      productController.delete(req, res)
+    );
 
     this.get("*", (req, res) => {
       res.send("Error no se encontro la ruta");
