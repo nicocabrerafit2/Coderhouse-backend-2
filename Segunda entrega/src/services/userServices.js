@@ -14,7 +14,8 @@ class UserService extends basicServices {
 
   async register(user) {
     try {
-      const { email, password } = user;
+      const userData = new userDTOReq(user);
+      const { email, password } = userData;
       const existUser = await super.getByEmail(email);
       if (!existUser) {
         const newUser = await super.create({
@@ -31,7 +32,8 @@ class UserService extends basicServices {
 
   async login(user) {
     try {
-      const { email, password } = user;
+      const userData = new userDTOReq(user);
+      const { email, password } = userData;
       const userExist = await super.getByEmail(email);
       if (!userExist) return null;
       const passValid = isValidPassword(userExist, password);

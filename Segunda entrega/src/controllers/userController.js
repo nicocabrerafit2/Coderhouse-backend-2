@@ -1,7 +1,6 @@
 import UserService from "../services/userServices.js";
 import { createResponse } from "../utils/utils.js";
 import basicController from "./basicController.js";
-import { userDTOReq, userDTORes } from "../persistence/DTO/userDTO.js";
 const userService = new UserService();
 
 class UserController extends basicController {
@@ -11,8 +10,7 @@ class UserController extends basicController {
 
   register = async (req, res, next) => {
     try {
-      const userData = new userDTOReq(req.body);
-      const data = await this.service.register(userData);
+      const data = await this.service.register(req.body);
       if (data === null) {
         createResponse(res, 404, {
           message: "Este email ya se encuentra registrado",
@@ -27,8 +25,7 @@ class UserController extends basicController {
 
   login = async (req, res, next) => {
     try {
-      const userData = new userDTOReq(req.body);
-      const token = await this.service.login(userData);
+      const token = await this.service.login(req.body);
       if (token === null) {
         createResponse(res, 404, {
           message: "Email o contraseña incorrectos",

@@ -1,9 +1,8 @@
-export default class productRepository {
+export default class cartsRepository {
   constructor(dao) {
     this.dao = dao;
   }
-
-  getAll = async () => await this.dao.getAll();
+  getAll = async () => await this.dao.getAll;
 
   create = async (product) => await this.dao.create(product);
 
