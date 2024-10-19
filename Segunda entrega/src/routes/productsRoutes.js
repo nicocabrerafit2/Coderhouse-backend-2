@@ -6,16 +6,16 @@ const productController = new ProductController();
 export default class ProductRouter extends BasicRouter {
   init() {
     this.get("/", ["PUBLIC"], (req, res) => productController.getAll(req, res));
-    this.get("/:productId", ["PUBLIC"], (req, res) =>
+    this.get("/:id", ["PUBLIC"], (req, res) =>
       productController.getById(req, res)
     );
     this.post("/", ["PUBLIC"], (req, res) =>
       productController.create(req, res)
     );
-    this.put("/:id", ["ADMIN"], (req, res) =>
+    this.put("/:id", ["PUBLIC"], (req, res) =>
       productController.update(req, res)
     );
-    this.delete("/:id", ["ADMIN"], (req, res) =>
+    this.delete("/:id", ["PUBLIC"], (req, res) =>
       productController.delete(req, res)
     );
 

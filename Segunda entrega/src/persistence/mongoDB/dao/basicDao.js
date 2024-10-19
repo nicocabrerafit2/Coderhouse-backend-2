@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 class mongoDao {
   constructor(model) {
     this.model = model;
@@ -7,15 +8,15 @@ class mongoDao {
     try {
       return await this.model.find({});
     } catch (error) {
-      return error;
+      throw new Error(error);
     }
   }
 
   async getById(id) {
     try {
-      return await this.model.findById(id);
+      return await this.model.findById(id).exec();
     } catch (error) {
-      return error;
+      throw new Error(error);
     }
   }
 
@@ -31,7 +32,7 @@ class mongoDao {
     try {
       return await this.model.findByIdAndUpdate(id, obj, { new: true });
     } catch (error) {
-      return error;
+      throw new Error(error);
     }
   }
 
@@ -39,7 +40,7 @@ class mongoDao {
     try {
       return await this.model.findByIdAndDelete(id);
     } catch (error) {
-      return error;
+      throw new Error(error);
     }
   }
 }

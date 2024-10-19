@@ -19,8 +19,11 @@ class basicController {
     try {
       const { id } = req.params;
       const data = await this.service.getById(id);
-      if (!data) createResponse(res, 404, data);
-      else createResponse(res, 200, data);
+      createResponse(
+        res,
+        !data ? 404 : 200,
+        !data ? { message: "Producto no encontrado" } : data
+      );
     } catch (error) {
       const statusCode = error.statusCode || 500;
       createResponse(res, statusCode, error.message);
@@ -40,8 +43,7 @@ class basicController {
     try {
       const { id } = req.params;
       const data = await this.service.update(id, req.body);
-      if (!data) createResponse(res, 404, data);
-      else createResponse(res, 200, data);
+      createResponse(res, !data ? 404 : 200, data);
     } catch (error) {
       const statusCode = error.statusCode || 500;
       createResponse(res, statusCode, error.message);
@@ -52,7 +54,15 @@ class basicController {
     try {
       const { id } = req.params;
       const data = await this.service.delete(id);
-      createResponse(res, 200, data);
+      createResponse(
+        res,
+        !data ? 404 : 200,
+        !data
+          ? {
+              message: "Producto no encontrado, no eliminado",
+            }
+          : { message: "Producto eliminado" }
+      );
     } catch (error) {
       const statusCode = error.statusCode || 500;
       createResponse(res, statusCode, error.message);

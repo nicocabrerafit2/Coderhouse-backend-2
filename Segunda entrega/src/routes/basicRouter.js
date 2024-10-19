@@ -33,7 +33,7 @@ export default class BasicRouter {
   }
 
   put(path, policies, ...cb) {
-    this.router.post(
+    this.router.put(
       path,
       this.handlePolicies(policies),
       //this.customResponses,
@@ -41,7 +41,7 @@ export default class BasicRouter {
     );
   }
   delete(path, policies, ...cb) {
-    this.router.post(
+    this.router.delete(
       path,
       this.handlePolicies(policies),
       //this.customResponses,
