@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 class mongoDao {
   constructor(model) {
     this.model = model;

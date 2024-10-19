@@ -1,4 +1,3 @@
-import { userDTOReq } from "../persistence/DTO/userDTO.js";
 export default class UserRepository {
   constructor(dao) {
     this.dao = dao;
@@ -7,8 +6,7 @@ export default class UserRepository {
   getAll = async () => await this.dao.getAll();
 
   create = async (user) => {
-    const userData = new userDTOReq(user);
-    return await this.dao.create(userData);
+    return await this.dao.create(user);
   };
 
   getById = async (id) => await this.dao.getById(id);
@@ -16,8 +14,7 @@ export default class UserRepository {
   getByEmail = async (email) => await this.dao.getByEmail(email);
 
   update = async (id, user) => {
-    const userData = new userDTOReq(user);
-    return await this.dao.update(id, userData);
+    return await this.dao.update(id, user);
   };
 
   delete = async (id) => await this.dao.delete(id);

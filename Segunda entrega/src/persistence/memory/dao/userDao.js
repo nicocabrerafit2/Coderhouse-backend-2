@@ -1,4 +1,4 @@
-export class memoryDao {
+export class UserAccessMemory {
   constructor() {
     this.data = [];
   }

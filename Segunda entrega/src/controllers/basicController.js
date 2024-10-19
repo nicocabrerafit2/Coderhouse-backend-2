@@ -22,7 +22,7 @@ class basicController {
       createResponse(
         res,
         !data ? 404 : 200,
-        !data ? { message: "Producto no encontrado" } : data
+        !data ? { message: "Elemento no encontrado" } : data
       );
     } catch (error) {
       const statusCode = error.statusCode || 500;
@@ -59,9 +59,9 @@ class basicController {
         !data ? 404 : 200,
         !data
           ? {
-              message: "Producto no encontrado, no eliminado",
+              message: "Elemento no encontrado, no eliminado",
             }
-          : { message: "Producto eliminado" }
+          : { message: "Elemento eliminado" }
       );
     } catch (error) {
       const statusCode = error.statusCode || 500;

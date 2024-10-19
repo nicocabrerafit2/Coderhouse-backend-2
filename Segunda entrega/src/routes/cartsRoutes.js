@@ -1,20 +1,27 @@
-import ProductController from "../controllers/productController.js";
+import CartController from "../controllers/cartController.js";
 import BasicRouter from "./basicRouter.js";
 
-const productController = new ProductController();
+const cartController = new CartController();
 
-export default class ProductRouter extends BasicRouter {
+export default class CartRouter extends BasicRouter {
   init() {
-    this.get("/", ["PUBLIC"], (req, res) => productController.getAll(req, res));
-    this.get("/:id", ["PUBLIC"], (req, res) =>
-      productController.getById(req, res)
+    this.get("/", ["ADMIN"], (req, res) => cartController.getAll(req, res));
+    this.get("/:id", ["ADMIN", "USER"], (req, res) =>
+      cartController.getById(req, res)
     );
-    this.post("/", ["ADMIN"], (req, res) => productController.create(req, res));
-    this.put("/:id", ["ADMIN"], (req, res) =>
-      productController.update(req, res)
+    this.post("/", ["USER"], (req, res) => cartController.create(req, res));
+    this.post("/:idcart/:idproduct", ["USER"], (req, res) =>
+      cartController.addProductInCart(req, res)
     );
-    this.delete("/:id", ["ADMIN"], (req, res) =>
-      productController.delete(req, res)
+    this.put("/:id", ["USER"], (req, res) => cartController.update(req, res));
+    this.put("/:idcart/:idproduct", ["USER"], (req, res) =>
+      cartController.updateQuantityProductInCart(req, res)
+    );
+    this.delete("/:id", ["USER"], (req, res) =>
+      cartController.delete(req, res)
+    );
+    this.delete("/:idcart/:idproduct", ["USER"], (req, res) =>
+      cartController.deleteProductFromCart(req, res)
     );
 
     this.get("*", (req, res) => {
