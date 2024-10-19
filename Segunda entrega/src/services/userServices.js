@@ -15,9 +15,9 @@ class UserService extends basicServices {
   async register(user) {
     try {
       const { email, password } = user;
-      const existUser = await this.dao.getByEmail(email);
+      const existUser = await super.getByEmail(email);
       if (!existUser) {
-        const newUser = await this.dao.create({
+        const newUser = await super.create({
           ...user,
           password: createHash(password),
         });
@@ -32,7 +32,7 @@ class UserService extends basicServices {
   async login(user) {
     try {
       const { email, password } = user;
-      const userExist = await this.dao.getByEmail(email);
+      const userExist = await super.getByEmail(email);
       if (!userExist) return null;
       const passValid = isValidPassword(userExist, password);
       if (!passValid) return null;

@@ -18,6 +18,13 @@ class basicServices {
       throw new Error(error);
     }
   }
+  async getByEmail(email) {
+    try {
+      return await this.repository.getByEmail(email);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 
   async create(obj) {
     try {

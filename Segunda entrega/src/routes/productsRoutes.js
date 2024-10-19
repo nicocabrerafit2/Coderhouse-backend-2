@@ -9,13 +9,11 @@ export default class ProductRouter extends BasicRouter {
     this.get("/:id", ["PUBLIC"], (req, res) =>
       productController.getById(req, res)
     );
-    this.post("/", ["PUBLIC"], (req, res) =>
-      productController.create(req, res)
-    );
-    this.put("/:id", ["PUBLIC"], (req, res) =>
+    this.post("/", ["ADMIN"], (req, res) => productController.create(req, res));
+    this.put("/:id", ["ADMIN"], (req, res) =>
       productController.update(req, res)
     );
-    this.delete("/:id", ["PUBLIC"], (req, res) =>
+    this.delete("/:id", ["ADMIN"], (req, res) =>
       productController.delete(req, res)
     );
 

@@ -18,7 +18,7 @@ class UserController extends basicController {
           message: "Este email ya se encuentra registrado",
         });
       } else {
-        !data ? createResponse(res, 404, data) : createResponse(res, 200, data);
+        createResponse(res, !data ? 404 : 200, data);
       }
     } catch (error) {
       next(error);
