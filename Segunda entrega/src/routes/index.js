@@ -12,6 +12,6 @@ const router = Router();
 router.use("/api/sessions/", UserRouter.getRouter());
 router.use("/api/products/", ProductRouter.getRouter());
 router.use("/api/carts/", CartsRouter.getRouter());
-router.use("/users", viewsRoutes);
+//router.use("/users", viewsRoutes);
 
 export default router;

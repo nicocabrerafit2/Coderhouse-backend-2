@@ -1,56 +1,96 @@
 import { CartRepository } from "../repositories/index.js";
 import basicServices from "./basicServices.js";
+import validationError from "../middlewares/ValidationError.js";
 
 class CartService extends basicServices {
   constructor() {
     super(CartRepository);
   }
-  async addProductInCart(req, res) {
-    const cartsInDatabase = await this.showDataBase();
-    const cartFinded = cartsInDatabase.find(
-      (item) => item._id == req.params.idcart
-    );
-    if (cartFinded) {
-      const productExistInCart = cartFinded.products.find(
-        (item) => item.product._id == req.params.idproduct
+  async addProductInCart(cartId, productId) {
+    try {
+      const cart = await super.getById(cartId);
+      if (!cart) {
+        throw new validationError(
+          "Ese carrito no se encuentra en la base de datos",
+          404
+        );
+      }
+      const productExistInCart = cart.products.find(
+        (item) => item.product.toString() === productId
       );
       if (productExistInCart) {
-        productExistInCart.quantity = productExistInCart.quantity + 1;
-        await cartDb.updateOne({ _id: req.params.idcart }, cartFinded);
-        return {
-          messaje:
-            "Se agregó una unidad mas del producto con id:" +
-            req.params.idproduct +
-            " al carrito con id:" +
-            req.params.idcart,
-        };
+        productExistInCart.quantity += 1;
       } else {
-        const productInCart = {
-          product: req.params.idproduct,
-          quantity: 1,
-        };
-        cartFinded.products.push(productInCart);
-        try {
-          await cartDb.updateOne({ _id: req.params.idcart }, cartFinded);
-          return {
-            messaje:
-              "Se agregó el producto con id:" +
-              req.params.idproduct +
-              " al carrito con id:" +
-              req.params.idcart,
-          };
-        } catch {
-          return {
-            status: "error",
-            messaje: "Problemas al agregar el producto en el carrito",
-          };
-        }
+        cart.products.push({ product: productId, quantity: 1 });
       }
-    } else {
+
+      await super.update(cartId, cart);
       return {
-        status: "error",
-        messaje: "Ese carrito no se encuentra en la base de datos",
+        message: productExistInCart
+          ? `Se agregó una unidad más del producto con id: ${productId} al carrito con id: ${cartId}`
+          : `Se agregó el producto con id: ${productId} al carrito con id: ${cartId}`,
       };
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+  async updateQuantityProductInCart(cartId, productId, quantity) {
+    try {
+      const cart = await super.getById(cartId);
+      if (!cart) {
+        throw new validationError(
+          "Ese carrito no se encuentra en la base de datos",
+          404
+        );
+      }
+
+      const productExistInCart = cart.products.find(
+        (item) => item.product.toString() === productId
+      );
+      if (!productExistInCart) {
+        throw new validationError(
+          "El producto no se encuentra en el carrito",
+          404
+        );
+      }
+
+      productExistInCart.quantity = quantity;
+      await super.update(cartId, cart);
+      return {
+        message: `Cantidad del producto con id: ${productId} actualizada a ${quantity} en el carrito con id: ${cartId}`,
+      };
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async deleteProductFromCart(cartId, productId) {
+    try {
+      const cart = await super.getById(cartId);
+      if (!cart) {
+        throw new validationError(
+          "Ese carrito no se encuentra en la base de datos",
+          404
+        );
+      }
+
+      const productIndex = cart.products.findIndex(
+        (item) => item.product.toString() === productId
+      );
+      if (productIndex === -1) {
+        throw new validationError(
+          "El producto no se encuentra en el carrito",
+          404
+        );
+      }
+
+      cart.products.splice(productIndex, 1);
+      await super.update(cartId, cart);
+      return {
+        message: `El producto con id: ${productId} ha sido eliminado del carrito con id: ${cartId}`,
+      };
+    } catch (error) {
+      throw new Error(error);
     }
   }
 }

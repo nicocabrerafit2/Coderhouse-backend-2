@@ -22,7 +22,7 @@ const ticketSchema = new Schema({
     required: true,
   },
   cart: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "cartModelMongo",
     required: true,
   },

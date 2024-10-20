@@ -1,15 +1,15 @@
-import mongoose, { Schema, model } from "mongoose";
+import { Schema, model } from "mongoose";
 const cartCollection = "carts";
 const cartSchema = new Schema({
   user: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "userModelMongo",
     required: true,
   },
   products: [
     {
       product: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "productModelMongo",
         required: true,
       },
@@ -26,7 +26,7 @@ const cartSchema = new Schema({
     default: "active",
   },
   ticket: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "ticketModelMongo",
   },
 });
