@@ -105,6 +105,44 @@ class CartService extends basicServices {
       throw new Error(error);
     }
   }
+  async purchaseCart(cartId, productService, ticketService) {
+    try {
+      const cart = await super.getById(cartId);
+      if (!cart) {
+        throw new validationError("Carrito no encontrado", 404);
+      }
+
+      for (let item of cart.products) {
+        const product = await productService.getById(item.product);
+
+        if (product.stock < item.quantity) {
+          throw new validationError(
+            "No hay suficiente stock para el producto con id: " + item.product,
+            400
+          );
+        }
+      }
+
+      // Restar el stock de cada producto en el carrito
+      for (let item of cart.products) {
+        const product = await productService.getById(item.product);
+        product.stock -= item.quantity;
+        await product.save();
+      }
+      cart.status = "completed";
+      const newTicket = {
+        user: cart.user,
+        products: cart.products,
+        cart: cartId,
+      };
+      await ticketService.create(newTicket);
+
+      cart.products = [];
+      await cart.save();
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default CartService;
