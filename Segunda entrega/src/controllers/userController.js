@@ -1,16 +1,18 @@
 import UserService from "../services/userServices.js";
+import CartService from "../services/cartServices.js";
 import { createResponse } from "../utils/utils.js";
 import basicController from "./basicController.js";
 const userService = new UserService();
-
+const cartService = new CartService();
 class UserController extends basicController {
   constructor() {
     super(userService);
+    this.cartService = cartService;
   }
 
   register = async (req, res, next) => {
     try {
-      const data = await this.service.register(req.body);
+      const data = await this.service.register(req.body, this.cartService);
       if (data === null) {
         createResponse(res, 404, {
           message: "Este email ya se encuentra registrado",

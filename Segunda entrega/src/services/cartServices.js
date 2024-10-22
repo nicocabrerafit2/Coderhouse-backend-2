@@ -6,6 +6,18 @@ class CartService extends basicServices {
   constructor() {
     super(CartRepository);
   }
+  async create(userId) {
+    try {
+      const newCart = {
+        user: userId,
+        products: [],
+        status: "active",
+      };
+      return await this.repository.create(newCart);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
   async addProductInCart(cartId, productId) {
     try {
       const cart = await super.getById(cartId);

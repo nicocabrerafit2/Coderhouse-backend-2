@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 
 export function handlePolicies(policies) {
-  // ['PUBLIC','ADMIN','USER','SUPERADMIN']
   return (req, res, next) => {
     if (policies.includes("PUBLIC")) return next();
     const reqJWT = req.headers.authorization;

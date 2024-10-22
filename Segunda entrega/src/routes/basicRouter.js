@@ -18,7 +18,6 @@ export default class BasicRouter {
     this.router.get(
       path,
       this.handlePolicies(policies),
-      //this.customResponses,
       this.applyCallbacks(cb)
     );
   }
@@ -27,7 +26,6 @@ export default class BasicRouter {
     this.router.post(
       path,
       this.handlePolicies(policies),
-      //this.customResponses,
       this.applyCallbacks(cb)
     );
   }
@@ -36,7 +34,6 @@ export default class BasicRouter {
     this.router.put(
       path,
       this.handlePolicies(policies),
-      //this.customResponses,
       this.applyCallbacks(cb)
     );
   }
@@ -44,7 +41,6 @@ export default class BasicRouter {
     this.router.delete(
       path,
       this.handlePolicies(policies),
-      //this.customResponses,
       this.applyCallbacks(cb)
     );
   }
@@ -58,15 +54,4 @@ export default class BasicRouter {
       }
     });
   }
-
-  /* customResponses(req, res, next) {
-    res.success = (payload) => res.json({ status: "success", payload });
-    res.errorServer = (error) =>
-      res.status(500).json({ status: "server error", error });
-    res.notFound = () =>
-      res
-        .status(404)
-        .json({ status: "not found", error: "Recurso no encontrado" });
-    next();
-  }*/
 }

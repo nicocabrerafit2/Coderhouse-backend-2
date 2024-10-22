@@ -12,7 +12,7 @@ class UserService extends basicServices {
     super(UserRepository);
   }
 
-  async register(user) {
+  async register(user, cartService) {
     try {
       const userData = new userDTOReq(user);
       const { email, password } = userData;
@@ -22,6 +22,9 @@ class UserService extends basicServices {
           ...user,
           password: createHash(password),
         });
+        const newCart = await cartService.create(newUser.id);
+        newUser.carts.push(newCart.id);
+        await newUser.save();
         return newUser;
       }
       return null;
@@ -47,6 +50,7 @@ class UserService extends basicServices {
     }
   }
   async sendMail(user) {
+    //Por el momento hardcodeado (no uso el user que viene por parametro)
     try {
       const mailSend = await transport.sendMail({
         from: "NC developer <nicocabrera8@gmail.com>",
