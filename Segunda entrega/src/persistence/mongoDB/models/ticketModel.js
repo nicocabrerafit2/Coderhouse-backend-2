@@ -23,7 +23,7 @@ const ticketSchema = new Schema({
   },
   cart: {
     type: Schema.Types.ObjectId,
-    ref: "cartModelMongo",
+    ref: "carts",
     required: true,
   },
 });

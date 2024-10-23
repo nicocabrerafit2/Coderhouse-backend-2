@@ -27,7 +27,7 @@ const userSchema = new Schema({
   carts: [
     {
       type: Schema.Types.ObjectId,
-      ref: "cartModelMongo",
+      ref: "carts",
     },
   ],
 });

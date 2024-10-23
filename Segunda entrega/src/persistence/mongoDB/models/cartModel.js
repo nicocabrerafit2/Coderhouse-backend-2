@@ -3,14 +3,14 @@ const cartCollection = "carts";
 const cartSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: "userModelMongo",
+    ref: "users",
     required: true,
   },
   products: [
     {
       product: {
         type: Schema.Types.ObjectId,
-        ref: "productModelMongo",
+        ref: "products",
         required: true,
       },
       quantity: {
@@ -27,7 +27,7 @@ const cartSchema = new Schema({
   },
   ticket: {
     type: Schema.Types.ObjectId,
-    ref: "ticketModelMongo",
+    ref: "tickets",
   },
 });
 const cartModelMongo = model(cartCollection, cartSchema);
