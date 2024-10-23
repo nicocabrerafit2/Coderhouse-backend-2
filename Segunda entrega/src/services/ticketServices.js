@@ -3,7 +3,7 @@ import basicServices from "./basicServices.js";
 
 class TicketService extends basicServices {
   constructor() {
-    super(CartRepository);
+    super(TicketRepository);
   }
 }
 

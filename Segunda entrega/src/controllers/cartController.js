@@ -71,10 +71,12 @@ class CartController extends basicController {
   purchaseCart = async (req, res) => {
     try {
       const { cartId } = req.params;
+      const user = req.body;
       const data = await this.service.purchaseCart(
         cartId,
         this.productService,
-        this.ticketService
+        this.ticketService,
+        user
       );
 
       if (!data) {

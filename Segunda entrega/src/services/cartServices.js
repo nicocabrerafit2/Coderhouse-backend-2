@@ -1,6 +1,7 @@
 import { CartRepository } from "../repositories/index.js";
 import basicServices from "./basicServices.js";
 import validationError from "../middlewares/ValidationError.js";
+import { v4 as uuidv4 } from "uuid";
 
 class CartService extends basicServices {
   constructor() {
@@ -105,7 +106,7 @@ class CartService extends basicServices {
       throw new Error(error);
     }
   }
-  async purchaseCart(cartId, productService, ticketService) {
+  async purchaseCart(cartId, productService, ticketService, user) {
     try {
       const cart = await super.getById(cartId);
       if (!cart) {
@@ -122,25 +123,27 @@ class CartService extends basicServices {
           );
         }
       }
-
-      // Restar el stock de cada producto en el carrito
+      let totalAmount = 0;
       for (let item of cart.products) {
         const product = await productService.getById(item.product);
         product.stock -= item.quantity;
         await product.save();
+        totalAmount += product.price * item.quantity;
       }
       cart.status = "completed";
       const newTicket = {
-        user: cart.user,
+        code: uuidv4(),
+        purchase_datetime: new Date(),
+        amount: totalAmount,
+        purchaser: user.email,
         products: cart.products,
         cart: cartId,
       };
-      await ticketService.create(newTicket);
-
       cart.products = [];
       await cart.save();
+      return await ticketService.create(newTicket);
     } catch (error) {
-      next(error);
+      throw new Error(error);
     }
   }
 }
